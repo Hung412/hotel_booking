@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hotel_booking_management_tree_view" model="ir.ui.view">
+        <field name="name">hotel.booking.management.tree.view</field>
+        <field name="model">hotel.booking.management</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="room_name" />
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hotel_booking_management_form_view" model="ir.ui.view">
+        <field name="name">hotel.booking.management.form.view</field>
+        <field name="model">hotel.booking.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="room_name" />
+                <field name="status"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="hotel_booking_management_action" model="ir.actions.act_window">
+        <field name="name">Hotel Booking Management</field>
+        <field name="res_model">hotel.booking.management</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
