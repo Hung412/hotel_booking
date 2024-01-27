@@ -12,6 +12,7 @@
         'security/ir.model.access.csv',
         # 'security/hotel_booking_security.xml',
         'views/hotel_booking_management.xml',
+        'views/room_management.xml',
     ],
     'license': 'LGPL-3',
     'installable': True,

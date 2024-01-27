@@ -1,9 +1,12 @@
 from odoo import api, models, fields, _
 
+
 class HotelBookingManagement(models.Model):
     _name = 'hotel.booking.management'
+    _rec_name = 'room_name'
 
     room_name = fields.Char(string='Room Name', required=True)
+    room_id = fields.Many2one('room.management', string='Room')
     status = fields.Selection([('available', 'Available'), ('booked', 'Booked'), ('fixing', 'Fixing')],
                               string='Status', default='available', required=True)
     room_type = fields.Selection([('single', 'Single'), ('double', 'Double')],
