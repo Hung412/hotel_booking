@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_hotel_booking_room">
+        <t t-call="website.layout">
+            <div>
+                <div class="row">
+        <!--                menu-->
+                    <div class="col-md-3">
+                        <table>
+                            <t t-foreach="room_status" t-as="status">
+                                <ul>
+                                    <li>
+                                        <t t-esc="status"/>
+                                        <t t-if="hotel_booking_ids">
+                                            <t t-foreach="hotel_booking_ids" t-as="room">
+                                                <t t-esc="room.room_id.name"/>
+                                                <t t-if="room.status == status">
+                                                    <t t-esc="room.room_id.name"/>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </li>
+                                </ul>
+                            </t>
+                        </table>
+                    </div>
+        <!--  content-->
+                    <div class="col-md-9">
+                        Welcome to my portal
+                        <t t-if="len(hotel_booking_ids) <= 3">
+                            <div class="row">
+                                <t t-foreach="hotel_booking_ids" t-as="room">
+                                    <div class="col-md-4 product">
+                                        <div class="img_portal">
+                                            <img class="img_portal" t-attf-src="{{room.img_url}}"></img>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

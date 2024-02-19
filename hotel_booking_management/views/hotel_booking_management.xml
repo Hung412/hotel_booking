@@ -56,6 +56,7 @@
                         </group>
                         <group>
                             <field name="room_image" widget="image" class="oe_avatar"/>
+                            <field name="img_url" widget="url"/>
                             <field name="rental_type" />
                             <field name="hour_rental" />
                         </group>

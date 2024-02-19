@@ -16,6 +16,7 @@ class HotelBookingManagement(models.Model):
                                    string='Rental Type', default='hour', required=True)
     hour_rental = fields.Integer(string="Hour rental", default=2)
     room_image = fields.Image(string='Image', attachment=True)
+    img_url = fields.Char(string='Img Url', compute='_compute_img_url', store=True)
 
     @api.depends('room_type')
     def _compute_room_price(self):
@@ -24,3 +25,10 @@ class HotelBookingManagement(models.Model):
                 rec.room_price = 15
             else:
                 rec.room_price = 30
+
+    @api.depends('room_image')
+    def _compute_img_url(self):
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        for rec in self:
+            if rec.room_image:
+                rec.img_url = base_url + f'/web/image?model=hotel.booking.management&id={rec.id}&field=room_image'
