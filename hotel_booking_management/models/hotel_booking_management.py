@@ -15,7 +15,7 @@ class HotelBookingManagement(models.Model):
     rental_type = fields.Selection([('hour', 'Hour'), ('overnight', 'Overnight')],
                                    string='Rental Type', default='hour', required=True)
     hour_rental = fields.Integer(string="Hour rental", default=2)
-    room_image = fields.Image(string='Image', attachment=True)
+    room_image = fields.Binary(string='Image', attachment=True)
     img_url = fields.Char(string='Img Url', compute='_compute_img_url', store=True)
 
     @api.depends('room_type')

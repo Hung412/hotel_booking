@@ -27,12 +27,32 @@
         <!--  content-->
                     <div class="col-md-9">
                         Welcome to my portal
-                        <t t-if="len(hotel_booking_ids) <= 3">
+                        <t t-if="len(hotel_booking_ids)  &lt; 4">
                             <div class="row">
                                 <t t-foreach="hotel_booking_ids" t-as="room">
                                     <div class="col-md-4 product">
-                                        <div class="img_portal">
-                                            <img class="img_portal" t-attf-src="{{room.img_url}}"></img>
+                                        <div class="elm_portal">
+                                            <t t-if="room.status == 'available'">
+                                                <span class="badge badge-success"><t t-esc="room.status"/></span>
+                                            </t>
+                                            <t t-if="room.status == 'booked'">
+                                                <span class="badge badge-primary"><t t-esc="room.status"/></span>
+                                            </t>
+                                            <t t-if="room.status == 'fixing'">
+                                                <span class="badge badge-warning"><t t-esc="room.status"/></span>
+                                            </t>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+                                                <path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/>
+                                                <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/>
+                                            </svg>
+                                            <t t-esc="room.room_type"/>
+                                            <div>
+                                                <img class="img_portal" t-attf-src="{{room.img_url}}"></img>
+                                                <div class="row">
+                                                    <button type="button" class="btn btn-primary col-md-4 btn-book">Book now</button>
+                                                    <button type="button" class="btn btn-info col-md-4 btn-detail">Detail</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </t>
