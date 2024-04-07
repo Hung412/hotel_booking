@@ -2,64 +2,63 @@
 <odoo>
     <template id="portal_hotel_booking_room">
         <t t-call="website.layout">
-            <div>
-                <div class="row">
-        <!--                menu-->
-                    <div class="col-md-3">
-                        <table>
-                            <t t-foreach="room_status" t-as="status">
-                                <ul>
-                                    <li>
-                                        <t t-esc="status"/>
-                                        <t t-if="hotel_booking_ids">
-                                            <t t-foreach="hotel_booking_ids" t-as="room">
-                                                <t t-esc="room.room_id.name"/>
-                                                <t t-if="room.status == status">
-                                                    <t t-esc="room.room_id.name"/>
-                                                </t>
-                                            </t>
-                                        </t>
-                                    </li>
-                                </ul>
-                            </t>
-                        </table>
-                    </div>
-        <!--  content-->
-                    <div class="col-md-9">
-                        Welcome to my portal
-                        <t t-if="len(hotel_booking_ids)  &lt; 4">
-                            <div class="row">
-                                <t t-foreach="hotel_booking_ids" t-as="room">
-                                    <div class="col-md-4 product">
-                                        <div class="elm_portal">
-                                            <t t-if="room.status == 'available'">
-                                                <span class="badge badge-success"><t t-esc="room.status"/></span>
-                                            </t>
-                                            <t t-if="room.status == 'booked'">
-                                                <span class="badge badge-primary"><t t-esc="room.status"/></span>
-                                            </t>
-                                            <t t-if="room.status == 'fixing'">
-                                                <span class="badge badge-warning"><t t-esc="room.status"/></span>
-                                            </t>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
-                                                <path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/>
-                                                <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/>
-                                            </svg>
-                                            <t t-esc="room.room_type"/>
-                                            <div>
-                                                <img class="img_portal" t-attf-src="{{room.img_url}}"></img>
-                                                <div class="row">
-                                                    <button type="button" class="btn btn-primary col-md-4 btn-book">Book now</button>
-                                                    <button type="button" class="btn btn-info col-md-4 btn-detail">Detail</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </t>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 style="margin-left:20px;">Checkout Successfully</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <a role="button" href="/shop" class="btn btn-primary float-right d-none d-xl-inline-block hotel_booking_checkout" style="float: left !important; margin-left:20px;">
+                        <span class="fa fa-chevron-left" />
+                        <span class="">Back to Home page</span>
+                    </a>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="my_booking_room">
+        <t t-call="website.layout">
+<!--            <div style="width: 80%; margin: auto; padding-top: 50px;">-->
+<!--                <table class="table table-hover">-->
+<!--                    <thead class="thead-dark">-->
+<!--                        <tr>-->
+<!--                            <th scope="col">ID</th>-->
+<!--                            <th scope="col">Room</th>-->
+<!--                            <th scope="col">Price</th>-->
+<!--                            <th scope="col">Date</th>-->
+<!--                            <th scope="col">Status</th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                        <t t-foreach="room_ids" t-as="item">-->
+<!--                            <tr>-->
+<!--                                <th scope="row"><t t-esc="item.room_id.id"/></th>-->
+<!--                                <td><t t-esc="item.room_id.name"/></td>-->
+<!--                                <td><t t-esc="item.price"/>/night</td>-->
+<!--                                <td><t t-esc="item.booking_date"/></td>-->
+<!--                                <td><t t-esc="item.status"/></td>-->
+<!--                            </tr>-->
+<!--                        </t>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+            <div style="width: 80%; margin: auto; padding-top: 50px;">
+                <t t-if="len(room_ids) &lt; 3">
+                    <div class="row">
+                        <t t-foreach="room_ids" t-as="item">
+                            <div class="card col-md-4" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><t t-esc="item.room_id.name"/></h5>
+                                    <p class="card-text">Price: <t t-esc="item.price"/>/night</p>
+                                    <p class="card-text">Date: <t t-esc="item.booking_date"/></p>
+                                    <p class="card-text">Status: <t t-esc="item.status"/></p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
                             </div>
                         </t>
                     </div>
-                </div>
+                </t>
             </div>
         </t>
     </template>

@@ -1,96 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="hotel_booking_management_tree_view" model="ir.ui.view">
-        <field name="name">hotel.booking.management.tree.view</field>
-        <field name="model">hotel.booking.management</field>
+    <record id="feature_facility_tree_view" model="ir.ui.view">
+        <field name="name">feature.facility.tree_view.tree.view</field>
+        <field name="model">feature.facility.management</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="room_name" />
-                <field name="status"/>
-                <field name="room_type"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
 
-    <record id="hotel_booking_management_kanban_view" model="ir.ui.view">
-        <field name="name">hotel.booking.management.kanban.view</field>
-        <field name="model">hotel.booking.management</field>
+    <record id="manage_room_tree_view" model="ir.ui.view">
+        <field name="name">manage.room.tree.view</field>
+        <field name="model">product.template</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="status">
-                <progressbar field="status" colors='{"available": "success", "booked": "danger", "fixing": "warning"}'/>
-                <templates>
-                    <t t-name="kanban-box">
-                            <div t-attf-class="oe_kanban_global_click">
-                            <div class="o_kanban_record_top">
-                                <div class="o_kanban_record_headings mt4">
-                                    <strong class="o_kanban_record_title"><field name="room_name"/></strong>
-                                </div>
-                                <field name="status" widget="label_selection"/>
-                                <field name="room_type" widget="label_selection"/>
-                                <field name="room_price" widget="label_selection"/>
-                            </div>
-                            <div class="o_kanban_record_body">
-                                <field name="rental_type" widget="label_selection"/>
-                                <field name="hour_rental" widget="label_selection" attrs="{'invisible': [('rental_type', '!=', 'hour')]}"/>
-                                <field name="room_image" widget="image" class="oe_kanban_avatar pull-right"/>
-                            </div>
-                        </div>
-                    </t>
-                </templates>
-            </kanban>
-        </field>
-    </record>
-
-    <record id="hotel_booking_management_form_view" model="ir.ui.view">
-        <field name="name">hotel.booking.management.form.view</field>
-        <field name="model">hotel.booking.management</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <group>
-                            <field name="room_name" />
-                            <field name="room_id" />
-                            <field name="status"/>
-                            <field name="room_type" />
-                            <field name="room_price" />
-                        </group>
-                        <group>
-                            <field name="room_image" widget="image" class="oe_avatar"/>
-                            <field name="img_url" widget="url"/>
-                            <field name="rental_type" />
-                            <field name="hour_rental" />
-                        </group>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <record id="hotel_booking_management_search" model="ir.ui.view">
-        <field name="name">hotel_booking_management.search</field>
-        <field name="model">hotel.booking.management</field>
-        <field name="arch" type="xml">
-            <search string="Rooms">
-                <field name="room_name" string="Name"/>
-                <field name="status"/>
+            <tree>
+                <field name="name" />
+                <field name="state"/>
                 <field name="room_type"/>
-                <field name="room_price"/>
-                <separator/>
-                <group expand="0" string="Group By">
-                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
-                </group>
-            </search>
+                <field name="list_price" />
+            </tree>
         </field>
     </record>
 
-    <record id="hotel_booking_management_action" model="ir.actions.act_window">
-        <field name="name">Hotel Booking Management</field>
-        <field name="res_model">hotel.booking.management</field>
-        <field name="view_mode">kanban,form,tree</field>
-        <field name="search_view_id" ref="hotel_booking_management_search"/>
-        <field name="context">{'group_by': ['status']}</field>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">manage.room.form.view</field>
+        <field name="model">product.template</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref="account.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="room_description"/>
+            </xpath>
+            <xpath expr="//header/button" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//header/button" position="after">
+                <field name="state" widget="statusbar"/>
+            </xpath>
+            <xpath expr="//button[@name='open_pricelist_rules']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//div[@name='options']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='purchase']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='inventory']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='general_information']/group/group[@name='group_general']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='invoicing']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='sales']" position="attributes">
+                <attribute name="string">Website setting</attribute>
+            </xpath>
+            <xpath expr="//group[@name='description']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='general_information']/group[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
     </record>
 
-    <menuitem id="menu_hotel_booking_management" name="Hotel Booking" action="hotel_booking_management_action"/>
+
+    <record id="manage_room_action" model="ir.actions.act_window">
+        <field name="name">Hotel Booking Management</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">form,tree</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('manage_room_tree_view')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('product_template_form_view')})]"/>
+<!--        <field name="search_view_id" ref="hotel_booking_management_search"/>-->
+<!--        <field name="context">{'group_by': ['status']}</field>-->
+    </record>
+
+    <record id="feature_facility_management_action" model="ir.actions.act_window">
+        <field name="name">Feature Facility Management</field>
+        <field name="res_model">feature.facility.management</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="feature_facility_tree_view"/>
+    </record>
+
+    <menuitem id="menu_hotel_booking_management" name="Hotel Booking" action="manage_room_action"/>
 </odoo>
